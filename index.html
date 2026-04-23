@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>그래서 퇴근은 빨라졌나요?</title>
+<meta name="viewport" content="width=1920, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0a07;
+    --bg-alt: #17120d;
+    --panel: #1e1812;
+    --ink: #f5efe5;
+    --ink-dim: #a09586;
+    --ink-faint: #5a5148;
+    --amber: #fbbf24;
+    --amber-soft: #fcd34d;
+    --cyan: #38bdf8;
+    --red: #f87171;
+    --green: #a3e635;
+    --violet: #c084fc;
+  }
+
+  html, body, .reveal {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
+  }
+
+  .reveal {
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .reveal .slides {
+    text-align: left;
+  }
+
+  .reveal .slides section {
+    padding: 40px 64px;
+    box-sizing: border-box;
+  }
+
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-transform: none;
+    margin: 0 0 0.4em;
+    line-height: 1.12;
+  }
+
+  .reveal h1 { font-size: 3.4em; font-weight: 900; letter-spacing: -0.045em; }
+  .reveal h2 { font-size: 1.95em; font-weight: 800; }
+  .reveal h3 { font-size: 1.25em; font-weight: 700; color: var(--amber); }
+  .reveal h4 { font-size: 1em; font-weight: 600; color: var(--ink-dim); }
+
+  .reveal p { line-height: 1.5; margin: 0.35em 0; }
+
+  .reveal em { color: var(--amber); font-style: normal; font-weight: 600; }
+  .reveal strong { color: var(--ink); font-weight: 700; }
+
+  .reveal ul, .reveal ol { display: block; margin: 0.4em 0; padding-left: 1.3em; }
+  .reveal li { margin: 0.2em 0; line-height: 1.45; }
+  .reveal li::marker { color: var(--ink-faint); }
+
+  .reveal pre, .reveal code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .reveal code {
+    background: rgba(251, 191, 36, 0.12);
+    color: var(--amber-soft);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: 500;
+  }
+
+  .reveal pre {
+    background: #0a0806;
+    border: 1px solid rgba(251, 191, 36, 0.12);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 0.62em;
+    line-height: 1.5;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0.4em 0;
+  }
+
+  .reveal pre code {
+    background: transparent;
+    color: var(--ink);
+    padding: 0;
+    border: none;
+    white-space: pre;
+    display: block;
+    overflow: visible;
+  }
+
+  .reveal blockquote {
+    background: transparent;
+    border: none;
+    border-left: 4px solid var(--amber);
+    padding: 10px 20px;
+    margin: 16px 0;
+    box-shadow: none;
+    color: var(--ink-dim);
+    font-style: normal;
+    font-size: 0.9em;
+    width: auto;
+  }
+
+  .reveal table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.68em;
+    margin: 14px 0;
+  }
+  .reveal th {
+    background: var(--panel);
+    color: var(--amber);
+    font-weight: 700;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid rgba(251, 191, 36, 0.4);
+  }
+  .reveal td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: var(--ink);
+    vertical-align: top;
+  }
+  .reveal tr:last-child td { border-bottom: none; }
+
+  /* Progress + slide number */
+  .reveal .progress { color: var(--amber); height: 3px; }
+  .reveal .slide-number {
+    background: transparent;
+    color: var(--ink-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+  .reveal .controls { color: var(--amber); }
+
+  /* ============ Custom utility classes ============ */
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.52em;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 24px;
+  }
+
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55em;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+
+  .hero-center {
+    text-align: center;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 40px !important;
+  }
+
+  .title-display {
+    font-size: 1em;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+  }
+
+  .subtitle {
+    color: var(--ink-dim);
+    font-size: 0.62em;
+    font-weight: 400;
+    margin-top: 28px;
+    letter-spacing: -0.005em;
+  }
+
+  .kicker {
+    color: var(--amber);
+    font-weight: 700;
+    font-size: 0.42em;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  .lede {
+    font-size: 1.15em;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    margin: 0.3em 0;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.45em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  .chip {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6em;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .chip.cyan { background: rgba(56, 189, 248, 0.14); color: var(--cyan); }
+  .chip.amber { background: rgba(251, 191, 36, 0.14); color: var(--amber); }
+  .chip.red { background: rgba(248, 113, 113, 0.14); color: var(--red); }
+  .chip.green { background: rgba(163, 230, 53, 0.14); color: var(--green); }
+  .chip.violet { background: rgba(192, 132, 252, 0.14); color: var(--violet); }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 22px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+    margin-top: 22px;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 18px 22px;
+  }
+  .card.accent { border-left: 4px solid var(--amber); }
+  .card h4 {
+    font-size: 0.85em;
+    color: var(--amber);
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .card p, .card li { font-size: 0.85em; color: var(--ink-dim); line-height: 1.5; margin: 0.25em 0; }
+  .card strong { color: var(--ink); font-weight: 600; }
+  .card ul { margin: 0.3em 0; padding-left: 1.2em; }
+
+  .footer-label {
+    position: absolute;
+    bottom: 22px;
+    left: 64px;
+    right: 64px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+  }
+
+  .quote-big {
+    font-size: 1.6em;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 22ch;
+  }
+  .quote-author {
+    color: var(--amber);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5em;
+    letter-spacing: 0.15em;
+    margin-top: 24px;
+    text-transform: uppercase;
+  }
+
+  .muted { color: var(--ink-dim); }
+  .amber { color: var(--amber); }
+  .cyan { color: var(--cyan); }
+  .red { color: var(--red); }
+  .green { color: var(--green); }
+  .strike { text-decoration: line-through; color: var(--ink-faint); }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--amber), transparent);
+    margin: 24px 0;
+  }
+
+  .big-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 4.2em;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .section-bg {
+    background: radial-gradient(ellipse at 30% 50%, rgba(251, 191, 36, 0.08) 0%, transparent 60%), var(--bg);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .flow-diagram {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62em;
+    line-height: 1.55;
+    color: var(--ink-dim);
+    background: #0a0806;
+    border: 1px solid rgba(251, 191, 36, 0.12);
+    padding: 16px 22px;
+    border-radius: 8px;
+    white-space: pre;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .flow-diagram .hl { color: var(--amber); font-weight: 700; }
+  .flow-diagram .cy { color: var(--cyan); }
+  .flow-diagram .rd { color: var(--red); }
+
+  .note {
+    color: var(--ink-faint);
+    font-size: 0.62em;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 20px;
+  }
+
+  /* Fragment custom animation */
+  .reveal .slides section .fragment.fade-up {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.4s ease-out;
+  }
+  .reveal .slides section .fragment.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Remove default reveal shadow */
+  .reveal section img { box-shadow: none; }
+
+  .week-line {
+    display: grid;
+    grid-template-columns: 90px 160px 1fr;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    align-items: center;
+  }
+  .week-line:last-child { border-bottom: none; }
+  .week-line .w {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--amber);
+    font-weight: 700;
+    font-size: 0.75em;
+  }
+  .week-line .k {
+    font-weight: 700;
+    font-size: 0.85em;
+  }
+  .week-line .d {
+    color: var(--ink-dim);
+    font-size: 0.78em;
+  }
+
+  .rating-bar {
+    display: flex;
+    height: 36px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 24px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6em;
+    font-weight: 700;
+  }
+  .rating-bar .green-half {
+    background: var(--green);
+    color: #0a0806;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rating-bar .red-half {
+    background: var(--red);
+    color: #0a0806;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .date-stamp {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.45em;
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    padding: 6px 14px;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================================ -->
+<!-- 1. TITLE                                                     -->
+<!-- ============================================================ -->
+<section data-background-color="#0d0a07" class="section-bg">
+  <div class="hero-center">
+    <div class="kicker">MAKERS · 2026 Spring</div>
+    <h1 class="title-display">그래서<br>퇴근은<br><span class="amber">빨라졌나요?</span></h1>
+    <div class="subtitle">'퇴근 메이커' 스터디 · 6주의 기록 · 4명의 결과물</div>
+  </div>
+  <div class="footer-label"><span>퇴근 메이커</span><span>2026 · 20 min</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 2. INTRO – 스터디란?                                         -->
+<!-- ============================================================ -->
+<section>
+  <div class="eyebrow">INTRO · 01</div>
+  <h2>퇴근 메이커, <span class="amber">한 문장으로</span></h2>
+  <p class="lede">
+    <strong>불필요한 반복 업무를 줄이고, 퇴근을 앞당긴다.</strong>
+  </p>
+  <p class="lede muted" style="margin-top: 24px;">
+    12주, 4명, 각자의 병목 — 그리고 각자의 해법.
+  </p>
+</section>
+
+<!-- ============================================================ -->
+<!-- 3. INTRO – 세 개의 챕터                                      -->
+<!-- ============================================================ -->
+<section>
+  <div class="eyebrow">INTRO · 02</div>
+  <h2>우리는 <span class="amber">세 챕터</span>를 거쳤다</h2>
+
+  <div class="grid-3">
+    <div class="card accent fragment fade-up">
+      <h4>Chapter 1</h4>
+      <p><strong>도구 익히기</strong></p>
+      <p>n8n 강의·문서로 핵심 개념 학습. 실제 워크플로 직접 구축할 수 있는 기본기.</p>
+    </div>
+    <div class="card accent fragment fade-up">
+      <h4>Chapter 2</h4>
+      <p><strong>내 반복 업무에 n8n</strong></p>
+      <p>각자의 병목을 정의하고, n8n으로 해결해 본다. 노드 학습 + 실전 적용.</p>
+    </div>
+    <div class="card accent fragment fade-up">
+      <h4>Chapter 3</h4>
+      <p><strong>n8n이 <span class="amber">아닐 수도</span> 있다</strong></p>
+      <p>모든 걸 n8n으로 풀려다 계륵을 만났다. 문제에서 다시 출발하자.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 4. INTRO – Chapter 3의 전환점                                -->
+<!-- ============================================================ -->
+<section data-background-color="#0d0a07">
+  <div class="hero-center">
+    <div class="kicker">CHAPTER 3 · 전환</div>
+    <div class="quote-big">
+      "도구가 아닌,<br>
+      <span class="amber">문제에서 시작하자.</span>"
+    </div>
+    <div class="quote-author">— Chapter 2 끝자락, 우리가 내린 결론</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 5. INTRO – 판단 기준                                         -->
+<!-- ============================================================ -->
+<section>
+  <div class="eyebrow">INTRO · 04</div>
+  <h2>판단 <span class="amber">기준</span>을 새로 썼다</h2>
+
+  <div class="grid-2">
+    <div class="card fragment fade-up">
+      <h4 class="green">n8n이 적합</h4>
+      <ul>
+        <li>단순 반복 업무</li>
+        <li>여러 SaaS 데이터 연동</li>
+        <li>워크플로 오케스트레이션</li>
+        <li>빠른 POC / 흐름 시각화</li>
+      </ul>
+    </div>
+    <div class="card fragment fade-up">
+      <h4 class="red">다른 도구가 적합</h4>
+      <ul>
+        <li>복잡한 비즈니스 로직 → 코드</li>
+        <li>개인화된 가이드 → LLM · Skill</li>
+        <li>OS · 로컬 제어 → 네이티브</li>
+        <li>고품질 UI → 프로덕트 코드</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 6. 박정환 – 인트로                                           -->
+<!-- ============================================================ -->
+<section data-background-color="#17120d">
+  <div class="hero-center">
+    <div class="kicker">PRESENTER 01</div>
+    <h1 class="title-display" style="font-size: 2.6em;">박정환</h1>
+    <div class="subtitle" style="max-width: 20ch;">
+      "내 업무 → 조직 지식 → <span class="amber">AI 생태계</span>"
+    </div>
+    <div style="margin-top: 40px;">
+      <span class="chip amber">에러 관리 자동화</span>
+      <span class="chip amber">개인 비서 봇</span>
+      <span class="chip amber">디자인 시스템 Agent Skills</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 7. 박정환 – 프로젝트 1 (문제)                                -->
+<!-- ============================================================ -->
+<section data-auto-animate>
+  <div class="section-number">01 / 박정환 · 프로젝트 ①</div>
+  <h2>에러 UI가 <span class="red">제각각</span>이다</h2>
+  <p class="lede muted" data-id="body">
+    에러마다 프론트 개발자가 UI 노출 로직을 개별 구현 →
+    <strong class="red">UI 형식·버튼 액션 불일치</strong>,
+    코드 파편화, 기획자 요청마다 수동 대응.
+  </p>
+</section>
+
+<!-- ============================================================ -->
+<!-- 8. 박정환 – 프로젝트 1 (해결)                                -->
+<!-- ============================================================ -->
+<section data-auto-animate>
+  <div class="section-number">01 / 박정환 · 프로젝트 ①</div>
+  <h2>해결: 메타데이터 + <span class="amber">단일 인터페이스</span></h2>
+
+  <div class="grid-2" style="margin-top: 24px;">
+    <div class="card fragment fade-up">
+      <h4>데이터 기반 제어 스키마</h4>
+      <p>메시지 · <strong>UI 타입(Toast/Dialog)</strong> · <strong>버튼 액션</strong>을 구글 스프레드시트로 데이터화.</p>
+      <p class="muted" style="font-size: 0.7em;">기획자가 전략을 직접 결정</p>
+    </div>
+    <div class="card fragment fade-up">
+      <h4>기술적 추상화</h4>
+      <p>파편화된 로직 → <code>showError(errorCode)</code> 단일 인터페이스. 데이터에 따라 자동 렌더.</p>
+      <p class="muted" style="font-size: 0.7em;">UX 일관성 · 유지비 절감</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 9. 박정환 – 프로젝트 1 (파이프라인)                          -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">01 / 박정환 · 프로젝트 ① 자동화</div>
+  <h2>기획자가 직접 <span class="amber">PR</span>을 만든다</h2>
+
+  <div class="flow-diagram" style="margin-top: 22px;">
+<span class="hl">[Google Sheets]</span>  ── 기획자가 시트 수정 후 '코드 반영' 버튼 클릭
+       │
+       ▼
+<span class="cy">[n8n Webhook]</span>  ── GCP API로 시트 조회 → CLI로 TS 객체 생성
+       │
+       ▼
+<span class="cy">[GitHub Actions]</span>  ── 코드 커밋 + PR 자동 생성
+       │
+       ▼
+<span class="hl">[Microsoft Teams]</span>  ── 알림
+  </div>
+
+  <p class="note" style="margin-top: 18px;">→ <span class="amber">기획자 주도의 운영 체계</span> 완성. 개발자 공수 제거.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- 10. 박정환 – 프로젝트 2                                      -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">02 / 박정환 · 프로젝트 ②</div>
+  <h2>개인 비서 봇, <span class="amber">Telegram</span> 한 창에서</h2>
+
+  <div class="grid-2">
+    <div>
+      <h4 style="color: var(--ink-dim);">문제</h4>
+      <p class="muted">캘린더 · 메일 · 문서가 앱마다 흩어짐. 중요 메일 누락 위험.</p>
+      <h4 style="color: var(--ink-dim); margin-top: 24px;">해결</h4>
+      <ul class="muted" style="font-size: 0.85em;">
+        <li><strong>n8n + Telegram 에이전트</strong> — Calendar · Gmail CRUD를 명령으로</li>
+        <li><strong>중요 메일 요약 자동화</strong> — 스케줄 수집 · 키워드·발신자 선별 · 요약 전송</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>BONUS</h4>
+      <p><strong class="amber">'함수랑 산악회' 테크 세미나</strong>에서 <em>'n8n 찍먹하기'</em> 주최 + 실습. 입문자도 기본 워크플로를 직접 구축할 수 있도록 역량 확산.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 11. 박정환 – 프로젝트 3                                      -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">03 / 박정환 · 프로젝트 ③</div>
+  <h2>디자인 시스템에 <span class="amber">AI Skill</span>을 심었다</h2>
+  <p class="lede muted">제품·저장소가 늘수록 가이드 이탈, 토큰 오용. <br>그리고 이제는 <strong class="amber">AI 에이전트에게도</strong> 일관된 맥락을 전해야 한다.</p>
+
+  <div class="grid-2" style="margin-top: 28px;">
+    <div class="card accent fragment fade-up">
+      <h4>해결</h4>
+      <ul style="font-size: 0.8em;">
+        <li>디자인 시스템 <strong>패키지에 Agent Skills 내장</strong> 배포</li>
+        <li>패키지 <strong>버전별</strong> 스킬 동봉 — 업데이트 혼선 제거</li>
+        <li>구현: <code>@TanStack/intent</code> CLI</li>
+      </ul>
+    </div>
+    <div class="card accent fragment fade-up">
+      <h4>제공 스킬 · 총 11개</h4>
+      <p style="font-size: 0.8em;">세팅 · 토큰 활용 · 컴포넌트 사용 ·
+        <strong class="amber">Chat/Chart 등 합성 컴포넌트 구축</strong> · …</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 12. 박정환 – 결론                                            -->
+<!-- ============================================================ -->
+<section data-background-color="#0d0a07">
+  <div class="hero-center">
+    <div class="kicker">박정환 · 결론</div>
+    <div class="quote-big">
+      자동화의 대상이<br>
+      내 업무 → 조직 지식 → <span class="amber">AI 에이전트 생태계</span>로<br>
+      확장됐다.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 13. 설재혁 – 인트로                                          -->
+<!-- ============================================================ -->
+<section data-background-color="#17120d">
+  <div class="hero-center">
+    <div class="kicker">PRESENTER 02</div>
+    <h1 class="title-display" style="font-size: 2.6em;">설재혁</h1>
+    <div class="subtitle" style="max-width: 24ch;">
+      카카오톡 오픈채팅 자동응답 봇,<br><span class="amber">6주간의 피벗 스토리</span>
+    </div>
+    <div class="date-stamp" style="margin-top: 32px;">📍 2026.04.22(수) · 실운영 도입</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 14. 설재혁 – 문제                                            -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 01</div>
+  <h2>의료인력 30~60대 × <span class="amber">반복 질문</span></h2>
+  <p class="lede">
+    카카오톡 오픈채팅방의 반복 질문을
+    <strong>CS 팀이 매번 수동으로 응답</strong>하고 있었고,
+    <strong class="red">주말에는 대응을 하지 못하고 있었다.</strong>
+  </p>
+  <p class="lede muted" style="margin-top: 24px;">
+    "이걸 자동으로 받아줄 수 있을까?"
+  </p>
+</section>
+
+<!-- ============================================================ -->
+<!-- 15. 설재혁 – 6주 로드맵                                      -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 02</div>
+  <h2>6주, <span class="amber">여섯 번의 결정</span></h2>
+
+  <div style="margin-top: 20px;">
+    <div class="week-line fragment fade-up"><span class="w">WEEK 1</span><span class="k">기초</span><span class="d">n8n 워크플로우 · Google Sheets State · 1분 디바운싱</span></div>
+    <div class="week-line fragment fade-up"><span class="w">WEEK 2</span><span class="k">문제 인식</span><span class="d">Vertex AI Search 품질 한계 발견 · 판단 근거 부족</span></div>
+    <div class="week-line fragment fade-up"><span class="w">WEEK 3</span><span class="k">구조 개선</span><span class="d">단일 → <strong class="amber">멀티 에이전트 오케스트레이션</strong></span></div>
+    <div class="week-line fragment fade-up"><span class="w">WEEK 4</span><span class="k">데이터 품질</span><span class="d">비정형 → 정형 · <code>PDF → md → JSONL</code></span></div>
+    <div class="week-line fragment fade-up"><span class="w">WEEK 5</span><span class="k">피벗 결정</span><span class="d">피드백 5/1 극단 · 할루시네이션 100% · 방향 전환</span></div>
+    <div class="week-line fragment fade-up"><span class="w">WEEK 6</span><span class="k">완성</span><span class="d"><strong class="amber">NotebookLM Adapter Server</strong> · Chrome CDP 제어</span></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 16. 설재혁 – 1주차 플로우                                    -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 03 · 1주차</div>
+  <h2>첫 플로우 — <span class="amber">트리거에서 응답까지</span></h2>
+
+  <div class="flow-diagram" style="margin-top: 20px; font-size: 0.52em;">
+질문 → <span class="cy">메신저봇</span> → <span class="hl">Webhook</span> → <span class="hl">Sheets(Get)</span> → <span class="hl">Sheets(Upsert)</span>
+     → <span class="cy">Wait 1m</span> → <span class="cy">Code</span>(시간 비교) → <span class="hl">HTTP Request</span> → <span class="rd">Vertex AI Search</span> → 답변 → 응답
+  </div>
+
+  <p style="margin-top: 22px;"><strong>핵심:</strong> <code>Append or Update Row</code> <span class="amber">Upsert</span>로 Race Condition 해결.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- 17. 설재혁 – 3주차 멀티에이전트                              -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 04 · 3주차</div>
+  <h2>단일 에이전트 → <span class="amber">멀티 에이전트</span></h2>
+
+  <div class="grid-2">
+    <div class="card fragment fade-up">
+      <h4 class="muted">AS-IS</h4>
+      <p>단일 에이전트 + 단일 데이터 스토어</p>
+      <p class="muted" style="font-size: 0.7em;">섞여 있는 컨텍스트, 품질 저하</p>
+    </div>
+    <div class="card accent fragment fade-up">
+      <h4>TO-BE</h4>
+      <p>마스터 에이전트 오케스트레이션</p>
+      <ul style="font-size: 0.75em;">
+        <li>채팅 내역</li>
+        <li>운영 지침서</li>
+        <li>서비스 매뉴얼</li>
+      </ul>
+      <p class="muted" style="font-size: 0.7em;">각각 스토어 · 서브 에이전트 분리</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 18. 설재혁 – 4주차 데이터                                    -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 05 · 4주차</div>
+  <h2>원천 데이터가 <span class="amber">답</span>이었다</h2>
+
+  <div class="grid-2" style="margin-top: 18px;">
+    <div>
+      <h4 class="muted">파이프라인</h4>
+      <p class="lede"><code>PDF → md → JSONL</code></p>
+      <h4 class="muted" style="margin-top: 18px;">포맷보다 중요한 것</h4>
+      <ul>
+        <li>노이즈 제거 (입/퇴장, 단순 "네")</li>
+        <li>의미 단위 청킹 (300~800자)</li>
+        <li>메타데이터 (날짜 · 질문자 · 태그)</li>
+        <li>일관된 구조 (<code>#</code>, <code>##</code>, <code>###</code>)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Vertex AI Data Store 스펙</h4>
+<pre><code>{
+  "id": "...",
+  "content": {
+    "rawBytes": "&lt;base64&gt;",
+    "mimeType": "text/plain"
+  },
+  "json_data": "..."
+}</code></pre>
+      <p class="muted">이 스펙 아니면 <strong class="red">업로드 자체가 안 됨</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 19. 설재혁 – 5주차 피드백 멸망                               -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 06 · 5주차</div>
+  <h2>피드백이 <span class="red">멸망</span>했다</h2>
+
+  <p class="lede muted" style="margin-top: 12px;">3일 내부 테스트. 결과는 극단적이었다.</p>
+
+  <div class="rating-bar">
+    <div class="green-half">★★★★★ · 50%</div>
+    <div class="red-half">★ · 50%</div>
+  </div>
+
+  <div class="card accent" style="margin-top: 32px;">
+    <h4 class="red">1점의 이유 · 100%</h4>
+    <p>단 하나의 예외도 없이 <strong class="amber">"잘못된 답변(할루시네이션)"</strong>.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 20. 설재혁 – 원인                                            -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 07 · 할루시네이션 원인</div>
+  <h2>원본의 <span class="red">구조적 결함</span></h2>
+
+  <p class="lede">
+    카카오톡 채팅 데이터는 이미 <strong class="amber">검증된 답변</strong>들이 오간,
+    우리가 가진 가장 <strong>가치 있는 원천 데이터</strong>였다.
+  </p>
+  <p class="lede muted">
+    → 과거 유사 질문의 <strong>답변을 추출</strong>해 재활용하는 것이 핵심이었다.
+  </p>
+
+  <p style="margin-top: 20px;">하지만 원본은 단순 <strong class="red">시간순 나열</strong>뿐이었다.</p>
+
+  <div class="card" style="margin-top: 16px;">
+    <h4 class="red">시도한 매핑 전략</h4>
+    <ul>
+      <li><strong>v1:</strong> 시간 범위 내 staff 발화에서 답변 후보 추출</li>
+      <li><strong>v2:</strong> anchor(가장 가까운 participant turn) 이후 staff turn만 후보</li>
+    </ul>
+    <p class="muted" style="margin-top: 10px;">→ <strong class="red">둘 다 100% 보장 불가능.</strong> 근본 해결 불가.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 21. 설재혁 – 피벗                                            -->
+<!-- ============================================================ -->
+<section data-background-color="#0d0a07">
+  <div class="hero-center">
+    <div class="kicker">PIVOT</div>
+    <div class="quote-big">
+      "만들 수 없다면,<br>
+      <span class="amber">빌려 쓰자.</span>"
+    </div>
+    <p class="muted" style="margin-top: 40px; max-width: 30ch; text-align: center;">
+      이미 검증된 NotebookLM 챗봇을 그대로 쓴다.<br>
+      Chrome CDP로 브라우저를 직접 제어한다.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 22. 설재혁 – 6주차 완성                                      -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 08 · 6주차</div>
+  <h2>NotebookLM <span class="amber">Adapter Server</span></h2>
+
+  <div class="flow-diagram" style="margin-top: 14px;">
+<span class="cy">[EC2]</span>  ├─ <span class="hl">n8n</span> (워크플로우)
+      └─ <span class="hl">NotebookLM Adapter</span> (로컬 서버)
+            │  Chrome CDP
+            ▼
+         <span class="cy">[Headless Chrome]</span>  →  NotebookLM 챗봇  →  답변
+  </div>
+
+  <div class="grid-3" style="margin-top: 18px;">
+    <div class="card fragment fade-up">
+      <h4 class="red">동시성</h4>
+      <p>요청당 30초~1분 → Race Condition → <strong class="amber">Promise Lock</strong>으로 직렬화</p>
+    </div>
+    <div class="card fragment fade-up">
+      <h4 class="red">계정 분리</h4>
+      <p>guest 권한 Selector 미동작 → <strong class="amber">편집자로 승격</strong></p>
+    </div>
+    <div class="card fragment fade-up">
+      <h4 class="red">운영 관측</h4>
+      <p>EC2 접속 불가 → <strong class="amber">noVNC</strong> 원격 GUI</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 23. 설재혁 – 도입                                            -->
+<!-- ============================================================ -->
+<section data-background-color="#17120d">
+  <div class="hero-center">
+    <div class="kicker">SHIPPED</div>
+    <div class="big-number">04·22</div>
+    <div class="lede" style="margin-top: 20px;"><strong>2026년 4월 22일(수)</strong></div>
+    <div class="subtitle" style="margin-top: 12px; max-width: 28ch;">
+      6주간의 설계·구현·검증·피벗을 거쳐,<br>
+      <span class="amber">실제 운영에 도입.</span>
+    </div>
+    <p class="muted" style="margin-top: 48px; font-size: 0.7em; font-style: italic;">
+      n8n 스터디가 없었다면, 이 날은 한참 더 멀리 있었을 것이다.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 24. 설재혁 – 결론                                            -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">설재혁 · 결론</div>
+  <h2>내가 배운 <span class="amber">두 가지</span></h2>
+
+  <div class="grid-2" style="margin-top: 32px;">
+    <div class="card accent">
+      <h4>① 품질 ≠ 아키텍처</h4>
+      <p>품질은 모델·아키텍처가 아니라 <strong class="amber">원본 데이터의 구조적 무결성</strong>이 결정한다.</p>
+    </div>
+    <div class="card accent">
+      <h4>② 피벗도 엔지니어링</h4>
+      <p>불가능을 고집하기보다 <strong class="amber">검증된 시스템을 빌려 쓰는 피벗</strong>이 진짜 엔지니어링이었다.</p>
+    </div>
+  </div>
+</section>
+
+      <!-- 25. 김경태 – 인트로                                          -->
+      <!-- ============================================================ -->
+      <section data-background-color="#17120d">
+        <div class="hero-center">
+          <div class="kicker">PRESENTER 03</div>
+          <h1 class="title-display" style="font-size: 2.6em;">김경태</h1>
+          <div class="subtitle" style="max-width: 24ch;">
+            성남 도서관 주간 식단표 자동화<br>
+            <span class="amber">앱인토스 배포</span>까지.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- 26. 김경태 – 문제                                            -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-number">김경태 · 01</div>
+        <h2>6개 도서관, <span class="red">6개의 공지 포맷</span></h2>
+
+        <div class="grid-2">
+          <div>
+            <p class="lede muted">수정 · 중원 · 분당 · 중앙 · 구미 · 판교</p>
+            <div style="display: flex; gap:10px;">
+              <img width="33%" src="./수정도서관.png">
+              <img width="33%" src="./분당도서관.png">
+              <img width="33%" src="./구미도서관.png">
+            </div>
+            <p class="muted">각 도서관이 서로 다른 포맷으로 식단표를 공지:</p>
+            <p class="muted" style="margin-top: 20px;">업로드 시간도 제각각 → 매주 6번 직접 방문해야 확인.</p>
+          </div>
+          <div class="card accent">
+            <h4>목표</h4>
+            <p class="lede" style="font-size: 1.1em;">
+              "6개 도서관 이번 주 식단을<br>
+              <strong class="amber">한 화면에서, 자동으로.</strong>"
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- 27. 김경태 – 아키텍처                                        -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-number">김경태 · 02 · 아키텍처</div>
+        <h2>파이프라인 <span class="amber">한 장</span></h2>
+
+        <div class="flow-diagram" style="margin-top: 16px;">
+          <span class="cy">[n8n Scheduler]</span> 3시간마다 트리거
+          │
+          ▼
+          <span class="hl">크롤링 + HTML 파싱</span> 이번 주 게시물만 필터
+          │
+          ▼
+          <span class="hl">LLM 정제 (Claude Opus)</span> 비정형 → 정형 JSON
+          │
+          ▼
+          <span class="cy">[Supabase]</span> 중복 방지 ID 설계
+          │
+          ▼
+          <span class="cy">[React Router v7 앱]</span> API · 렌더링
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- 28. 김경태 – 핵심                                            -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-number">김경태 · 03 · 핵심 구현</div>
+        <h2>비정형 → <span class="amber">정형</span>, 그리고 누락 방지</h2>
+
+        <div class="grid-2" style="margin-top: 24px;">
+          <div class="card fragment fade-up">
+            <h4>① 포맷별 분기 + LLM 정형화</h4>
+            <p style="font-size: 0.85em;">본문 이미지 도서관 vs 첨부 도서관 <strong class="amber">분기 처리</strong>해 링크 추출.</p>
+            <p style="font-size: 0.85em;">LLM에 <strong>도서관 정보 + URL</strong>만 전달, System Prompt에 <strong
+                class="amber">정형 스키마</strong> 명시.</p>
+          </div>
+          <div class="card fragment fade-up">
+            <h4>② 3시간 주기 재크롤</h4>
+            <p style="font-size: 0.85em;">업로드 시간이 제각각 → 워크플로를 <strong>3시간마다</strong> 실행.</p>
+            <p style="font-size: 0.85em;"><strong class="amber">누락된 도서관만</strong> 재크롤 → 호출/비용 절감.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- 29. 김경태 – 결과물                                          -->
+      <!-- ============================================================ -->
+      <section data-background-color="#0d0a07">
+        <div class="hero-center">
+          <div class="kicker">SHIPPED · 앱인토스</div>
+          <div class="quote-big">
+            "별도 앱 설치 없이,<br>
+            <span class="amber">매일 여는 앱 안에서.</span>"
+          </div>
+          <img width="5%" style="margin-top: 40px;" src="./성남시도서관3.png" />
+          <p class="muted" style="margin-top: 40px; max-width: 34ch; text-align: center; font-size: 0.7em;">
+            토스 미니앱(앱인토스)으로 <strong class="amber">실제 배포 완료.</strong><br>
+            진입 장벽 zero, 자연스러운 일상 속 자리.
+          </p>
+          <div>
+
+            <div style="display:flex; justify-content: center; align-items: center; gap:10px;">
+
+              <img width="10%" src="./성남시도서관.jpg" />
+              <img width="10%" src="./성남시도서관2.jpg" />
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+<!-- ============================================================ -->
+<!-- 30. 이재석 – 인트로                                          -->
+<!-- ============================================================ -->
+<section data-background-color="#17120d">
+  <div class="hero-center">
+    <div class="kicker">PRESENTER 04</div>
+    <h1 class="title-display" style="font-size: 2.6em;">이재석</h1>
+    <div class="subtitle" style="max-width: 26ch;">
+      n8n × Hammerspoon,<br>
+      <span class="amber">경계 깨기</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 31. 이재석 – 문제                                            -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">이재석 · 01</div>
+  <h2>n8n은 SaaS는 엮는데, <span class="red">내 PC는?</span></h2>
+  <p class="lede muted">
+    SaaS끼리는 매끄럽게 엮지만,<br>
+    <strong class="red">내 로컬 PC의 영역엔 손대지 못한다.</strong>
+  </p>
+
+  <div class="grid-3" style="margin-top: 24px;">
+    <div class="card">
+      <h4 class="red">① 파일시스템</h4>
+      <p>로컬 파일·폴더 읽기·쓰기,<br>Finder·Obsidian vault 연동 불가</p>
+    </div>
+    <div class="card">
+      <h4 class="red">② Shell Script</h4>
+      <p>내 PC에서 명령 실행,<br>앱 실행·포커스 제어 불가</p>
+    </div>
+    <div class="card">
+      <h4 class="red">③ OS 이벤트</h4>
+      <p>뚜껑 열림·WiFi 전환 같은<br>시스템 이벤트 감지 불가</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 31.5 이재석 – Thesis                                         -->
+<!-- ============================================================ -->
+<section data-background-color="#17120d">
+  <div class="hero-center">
+    <div class="kicker">THESIS</div>
+    <div class="quote-big">
+      n8n은 <span class="amber">Hammerspoon</span>을 만나<br>
+      <span class="amber">로컬 OS 자동화 엔진</span>이 된다.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 32. 이재석 – Hammerspoon                                     -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">이재석 · 02</div>
+  <h2>Hammerspoon, <span class="amber">한 줄</span>로</h2>
+
+  <blockquote style="margin: 24px 0; font-size: 1.05em;">
+    macOS를 스크립팅하는 <strong class="amber">Lua 런타임</strong>.<br>
+    "브라우저에서 JS로 DOM을 조작하듯, <strong>Lua로 macOS를 조작</strong>한다."
+  </blockquote>
+
+  <div class="grid-3" style="margin-top: 20px;">
+    <div class="card">
+      <h4 class="green">로컬 파일·앱 제어</h4>
+      <p>파일 경로로 Finder 열기,<br>앱 포커스·창 레이아웃 조작</p>
+    </div>
+    <div class="card">
+      <h4 class="green">시스템 이벤트 훅</h4>
+      <p>뚜껑 열림·화면 잠금·<br>WiFi 전환 같은 OS 이벤트</p>
+    </div>
+    <div class="card">
+      <h4 class="green">커스텀 URL Scheme</h4>
+      <p><code>hammerspoon://…</code><br>외부에서 로컬 기능 트리거</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 33. 이재석 – Vault Case                                      -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">
+    이재석 · 03 · Case
+    <span class="pill" style="margin-left: 10px; vertical-align: middle;">&gt; Demo</span>
+  </div>
+  <h2>Vault Health Report</h2>
+
+  <p class="lede" style="margin-top: 10px;">
+    "이번엔 <strong>체계적으로</strong> 쓰자." — 매번 그렇게 시작한다.
+  </p>
+  <p class="muted" style="font-size: 0.85em; margin-top: 6px;">
+    두 달 뒤 Obsidian 루트엔 <strong class="amber">'일단 여기 둔'</strong> 노트가 쌓이고,<br>
+    폴더 정리는 언제나 <strong class="red">다음 주의 일</strong>이 된다.
+  </p>
+
+  <div class="flow-diagram" style="margin-top: 16px;">
+<span class="cy">[n8n Cron]</span>  ──▶  <span class="hl">Execute Command: hammerspoon://vault/scan</span>
+                       │
+                       ▼
+              <span class="cy">[HS]</span> Vault 스캔 → JSON 반환
+                       │
+                       ▼
+              <span class="cy">[n8n]</span> LLM 구조 분석 + 정리 제안
+                       │
+                       ▼
+              <span class="hl">Webview 리포트 + 수정 링크</span>  ──▶  Obsidian 노트 열림
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 34.5 이재석 – 그 외 워크플로                                 -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">이재석 · 04 · Extra</div>
+  <h2>그 외의 <span class="amber">워크플로들</span></h2>
+
+  <div class="grid-2" style="margin-top: 28px;">
+    <div class="card">
+      <h4 class="amber">Git Worktree 자동 관리</h4>
+      <p>PR 머지되면 <strong>로컬 worktree 자동 정리</strong>.</p>
+    </div>
+    <div class="card">
+      <h4 class="amber">주요 폴더 동기화</h4>
+      <p><strong>클라우드 / git</strong>으로 정기 동기화.</p>
+    </div>
+  </div>
+
+  <p class="lede muted" style="margin-top: 32px; text-align: center;">
+    일상의 모든 반복이 <strong class="amber">후보</strong>다.
+  </p>
+</section>
+
+<!-- ============================================================ -->
+<!-- 35. 이재석 – 결론                                            -->
+<!-- ============================================================ -->
+<section>
+  <div class="section-number">이재석 · 결론</div>
+  <h2>n8n을 써보고 <span class="amber">내린 결론</span></h2>
+
+  <div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+      <h4 class="red">한계</h4>
+      <ul style="font-size: 0.78em;">
+        <li>복잡해질수록 부적합</li>
+        <li>코드로 쓰는 게 편한 경우가 더 많음</li>
+        <li>결국 코드노드 덕지덕지</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h4 class="green">빛나는 영역</h4>
+      <ul style="font-size: 0.78em;">
+        <li>빠른 POC, 흐름 시각화</li>
+        <li>노드 교체 쉬움</li>
+        <li>SaaS 엮기는 압도적</li>
+      </ul>
+    </div>
+  </div>
+
+  <blockquote style="margin-top: 28px; font-size: 1em;">
+    <strong class="amber">오케스트레이션 × 로컬 자동화.</strong> 경계를 깨면 새 가능성이 열린다.
+  </blockquote>
+</section>
+
+<!-- ============================================================ -->
+<!-- 36. 공통 – 4인 비교                                          -->
+<!-- ============================================================ -->
+<section>
+  <div class="eyebrow">COMMON · 01</div>
+  <h2>서로 다른 도메인, <span class="amber">같은 결론</span></h2>
+
+  <table style="margin-top: 14px; font-size: 0.6em;">
+    <thead>
+      <tr>
+        <th style="width: 18%;"></th>
+        <th>박정환</th>
+        <th>설재혁</th>
+        <th>김경태</th>
+        <th>이재석</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="muted">문제</td>
+        <td>에러 파편화</td>
+        <td>반복 질문 응대</td>
+        <td>6개 사이트 수동</td>
+        <td>로컬 PC 접근 불가</td>
+      </tr>
+      <tr>
+        <td class="muted">n8n이 빛난 자리</td>
+        <td>Webhook → CI/CD</td>
+        <td>프로토타이핑·트리거</td>
+        <td>스케줄 + 크롤</td>
+        <td>SaaS 오케스트레이션</td>
+      </tr>
+      <tr>
+        <td class="muted">n8n을 넘어선 선택</td>
+        <td>CLI · Agent Skills</td>
+        <td>NotebookLM + CDP</td>
+        <td>LLM · Supabase · RRv7</td>
+        <td>Hammerspoon (Lua)</td>
+      </tr>
+      <tr>
+        <td class="muted">도달점</td>
+        <td class="amber">조직 스킬 11개 배포</td>
+        <td class="amber">4/22 실운영 도입</td>
+        <td class="amber">앱인토스 배포</td>
+        <td class="amber">개인 OS 자동화</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================================================ -->
+<!-- 37. 공통 – 한 줄                                             -->
+<!-- ============================================================ -->
+<section data-background-color="#0d0a07">
+  <div class="hero-center">
+    <div class="kicker">한 줄로 요약</div>
+    <div class="quote-big">
+      네 사람 모두<br>
+      <span class="strike">도구</span>가 아닌<br>
+      <span class="amber">문제</span>에서 시작했다.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 38. 회고                                                     -->
+<!-- ============================================================ -->
+<section>
+  <div class="eyebrow">RETRO</div>
+  <h2>우리가 <span class="amber">얻은 것</span></h2>
+
+  <ul style="font-size: 1em; margin-top: 24px;">
+    <li class="fragment fade-up">n8n이 맡아야 할 <strong class="amber">역할과 한계</strong>를 명확히 이해했다.</li>
+    <li class="fragment fade-up">어떤 문제를 n8n으로, 어떤 건 다른 도구로 풀지 <strong class="amber">스스로 판단할 수 있는 기준</strong>이 생겼다.</li>
+    <li class="fragment fade-up">이슈와 팁을 서로 공유한 덕분에 <strong class="amber">실무 적용 역량</strong>이 강화됐다.</li>
+    <li class="fragment fade-up">스터디와 별개로 <strong class="amber">현업 고민과 해결 사례</strong>를 나누며 업무 환경을 개선했다.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ -->
+<!-- 39. 마무리 멘트                                              -->
+<!-- ============================================================ -->
+<section data-background-color="#0d0a07" class="section-bg">
+  <div class="hero-center">
+    <div class="kicker">OUTRO</div>
+    <div class="quote-big fragment fade-in-then-semi-out" style="font-size: 1.6em; max-width: 26ch;">
+      퇴근은 조금 더<br>
+      <span class="amber">빨라지는 중.</span>
+    </div>
+    <p class="subtitle fragment fade-up" style="margin-top: 40px; font-size: 0.7em; max-width: 34ch;">
+      우리는 여전히 <strong class="amber">문제를 찾고</strong>,
+      <strong class="amber">도구를 고르고</strong>,
+      <strong class="amber">위임하고</strong> 있다.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 40. Thank you                                                -->
+<!-- ============================================================ -->
+<section data-background-color="#17120d">
+  <div class="hero-center">
+    <h1 class="title-display" style="font-size: 2.4em;">Thank you.</h1>
+    <p class="subtitle" style="margin-top: 32px;">
+      <span class="chip amber">박정환</span>
+      <span class="chip amber">설재혁</span>
+      <span class="chip amber">김경태</span>
+      <span class="chip amber">이재석</span>
+    </p>
+    <p class="note" style="margin-top: 48px;">퇴근 메이커 · 2026 Spring</p>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1600,
+    height: 900,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 2.0,
+    center: true,
+    hash: true,
+    controls: true,
+    progress: true,
+    slideNumber: 'c/t',
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    autoAnimateDuration: 0.6,
+    autoAnimateEasing: 'ease-out',
+    plugins: [ RevealHighlight, RevealNotes ]
+  });
+</script>
+</body>
+</html>
