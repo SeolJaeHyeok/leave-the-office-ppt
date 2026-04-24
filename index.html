@@ -1152,27 +1152,32 @@
     이재석 · 03 · Case
     <span class="pill" style="margin-left: 10px; vertical-align: middle;">&gt; Demo</span>
   </div>
-  <h2>Vault Health Report</h2>
+  <h2>Morning Brief</h2>
 
   <p class="lede" style="margin-top: 10px;">
-    "이번엔 <strong>체계적으로</strong> 쓰자." — 매번 그렇게 시작한다.
+    "어제 어디까지 했더라?" — 매일 아침 이 질문부터 시작한다.
   </p>
   <p class="muted" style="font-size: 0.85em; margin-top: 6px;">
-    두 달 뒤 Obsidian 루트엔 <strong class="amber">'일단 여기 둔'</strong> 노트가 쌓이고,<br>
-    폴더 정리는 언제나 <strong class="red">다음 주의 일</strong>이 된다.
+    캘린더 열고, Linear 열고, 어제 커밋 훑고, 중단점 메모까지<br>
   </p>
 
   <div class="flow-diagram" style="margin-top: 16px;">
-<span class="cy">[n8n Cron]</span>  ──▶  <span class="hl">Execute Command: hammerspoon://vault/scan</span>
-                       │
-                       ▼
-              <span class="cy">[HS]</span> Vault 스캔 → JSON 반환
-                       │
-                       ▼
-              <span class="cy">[n8n]</span> LLM 구조 분석 + 정리 제안
-                       │
-                       ▼
-              <span class="hl">Webview 리포트 + 수정 링크</span>  ──▶  Obsidian 노트 열림
+<span class="cy">[n8n Cron · 매일 09:00]</span>
+       │
+       ▼
+<span class="hl">[Code × 4]</span>  중단점 · 캘린더 · Linear · Git  
+       │
+       ▼
+<span class="hl">[Code]</span>  브리핑 조립 — 수집 결과 통합
+       │
+       ▼
+<span class="hl">Execute Command: hammerspoon://brief?type=morning</span>
+       │
+       ▼
+<span class="cy">[HS]</span>  Webview 렌더 — 중단점 / 일정 / 이슈 / 어제 커밋
+       │
+       ▼
+링크 클릭 → <span class="cy">hammerspoon://jump</span> (tmux + nvim) · Calendar · Linear
   </div>
 </section>
 
@@ -1183,7 +1188,11 @@
   <div class="section-number">이재석 · 04 · Extra</div>
   <h2>그 외의 <span class="amber">워크플로들</span></h2>
 
-  <div class="grid-2" style="margin-top: 28px;">
+  <div class="grid-3" style="margin-top: 28px;">
+    <div class="card">
+      <h4 class="amber">Vault Health Report</h4>
+      <p>Obsidian vault <strong>구조 스캔 → 정리 제안</strong></p>
+    </div>
     <div class="card">
       <h4 class="amber">Git Worktree 자동 관리</h4>
       <p>PR 머지되면 <strong>로컬 worktree 자동 정리</strong></p>
