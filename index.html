@@ -743,14 +743,12 @@
 <!-- 16. 설재혁 – 1주차 플로우                                    -->
 <!-- ============================================================ -->
 <section>
-  <div class="section-number">설재혁 · 03 · 1주차</div>
+  <div class="section-number">설재혁 · 03 · 1~2주차</div>
   <h2>첫 플로우 — <span class="amber">트리거에서 응답까지</span></h2>
 
   <div class="flow-diagram" style="margin-top: 20px; font-size: 0.52em;">
 질문 → <span class="cy">메신저봇</span> → <span class="hl">Webhook</span> → <span class="hl">Sheets(Get)</span> → <span class="hl">Sheets(Upsert)</span> → <span class="cy">Wait 1m</span> → <span class="cy">Code</span>(시간 비교) → <span class="hl">HTTP Request</span> → <span class="rd">Vertex AI Search</span> → 답변 → 응답
   </div>
-
-  <p style="margin-top: 22px;"><strong>핵심:</strong> <code>Append or Update Row</code> <span class="amber">Upsert</span>로 Race Condition 해결.</p>
 </section>
 
 <!-- ============================================================ -->
