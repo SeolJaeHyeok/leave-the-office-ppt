@@ -966,26 +966,33 @@
       <!-- ============================================================ -->
       <section>
         <div class="section-number">김경태 · 01</div>
-        <h2>6개 도서관, <span class="red">6개의 공지 포맷</span></h2>
+        <h2>문제점: <span class="white">6개 도서관,</span>   <span class="red">6개의 공지 포맷</span></h2>
 
         <div style="display: grid; grid-template-columns: 1fr auto; gap: 22px;">
           <div>
-            <p class="lede muted">수정 · 중원 · 분당 · 중앙 · 구미 · 판교</p>
-            <div style="display: flex; gap:10px;">
-              <img width="33%" src="./수정도서관.png">
-              <img width="33%" src="./분당도서관.png">
-              <img width="33%" src="./구미도서관.png">
+            <ul style="margin: 0 0 20px; padding-left: 1.2em; list-style: disc;">
+              <li>식단표 업로드 시간도 제각각 → 매주 6번 직접 방문해야 확인</li>
+            </ul>
+
+            <ul style="margin: 0 0 12px; padding-left: 1.2em; list-style: disc;">
+              <li>각 도서관이 서로 다른 포맷으로 식단표를 공지:</li>
+            </ul>
+            <div style="display: flex; gap: 2%; align-items: flex-end;">
+              <figure style="flex: 1; margin: 0; text-align: center;">
+                <img style="width: 100%; aspect-ratio: 1;" src="./수정도서관.png">
+                <figcaption class="muted">웹 게시판에 이미지 기재 </figcaption>
+              </figure>
+              <figure style="flex: 1; margin: 0; text-align: center;">
+                <img style="width: 100%; aspect-ratio: 1;" src="./분당도서관.png">
+                <figcaption class="muted">엑셀파일</figcaption>
+              </figure>
+              <figure style="flex: 1; margin: 0; text-align: center;">
+                <img style="width: 100%; aspect-ratio: 1.2;" src="./구미도서관.png">
+                <figcaption class="muted">엑셀파일</figcaption>
+              </figure>
             </div>
-            <p class="muted">각 도서관이 서로 다른 포맷으로 식단표를 공지:</p>
-            <p class="muted" style="margin-top: 20px;">업로드 시간도 제각각 → 매주 6번 직접 방문해야 확인</p>
           </div>
-          <div class="card accent" style="width: fit-content; align-self: start; white-space: nowrap;">
-            <h4>목표</h4>
-            <p class="lede" style="font-size: 1.1em;">
-              "6개 도서관 이번 주 식단을<br>
-              <strong class="amber">한 화면에서, 자동으로</strong>"
-            </p>
-          </div>
+         
         </div>
       </section>
 
@@ -994,22 +1001,25 @@
       <!-- ============================================================ -->
       <section>
         <div class="section-number">김경태 · 02 · 아키텍처</div>
-        <h2>파이프라인 <span class="amber">한 장</span></h2>
+        <h2>n8n 워크플로우 파이프라인</h2>
 
-        <div class="flow-diagram" style="margin-top: 16px;">
-          <span class="cy">[n8n Scheduler]</span> 3시간마다 트리거
-          │
-          ▼
-          <span class="hl">크롤링 + HTML 파싱</span> 이번 주 게시물만 필터
-          │
-          ▼
-          <span class="hl">LLM 정제 (Claude Opus)</span> 비정형 → 정형 JSON
-          │
-          ▼
-          <span class="cy">[Supabase]</span> 중복 방지 ID 설계
-          │
-          ▼
-          <span class="cy">[React Router v7 앱]</span> API · 렌더링
+        <div style="display: grid; margin-top: 16px; place-items: center;">
+          <img class="fragment fade-out" data-fragment-index="0"
+               src="./성남시도서관4.png"
+               style="grid-column: 1; grid-row: 1; max-width: 100%; height: auto;">
+          <div class="flow-diagram fragment fade-in" data-fragment-index="0"
+               style="grid-column: 1; grid-row: 1; align-self: center; justify-self: stretch;">
+            <span class="cy">[n8n Scheduler]</span> 3시간마다 트리거
+            │
+            ▼
+            <span class="hl">크롤링 + HTML 파싱</span> 이번 주 게시물만 필터
+            │
+            ▼
+            <span class="hl">LLM 정제 (Claude Opus)</span> 비정형 → 정형 JSON
+            │
+            ▼
+            <span class="cy">[Supabase]</span> 중복 방지 ID 설계
+          </div>
         </div>
       </section>
 
@@ -1018,19 +1028,32 @@
       <!-- ============================================================ -->
       <section>
         <div class="section-number">김경태 · 03 · 핵심 구현</div>
-        <h2>비정형 → <span class="amber">정형</span>, 그리고 누락 방지</h2>
+        <h2>문제 해결</h2>
 
         <div class="grid-2" style="margin-top: 24px;">
           <div class="card fragment fade-up">
-            <h4>① 포맷별 분기 + LLM 정형화</h4>
-            <p style="font-size: 0.85em;">본문 이미지 도서관 vs 첨부 도서관 <strong class="amber">분기 처리</strong>해 링크 추출</p>
-            <p style="font-size: 0.85em;">LLM에 <strong>도서관 정보 + URL</strong>만 전달, System Prompt에 <strong
-                class="amber">정형 스키마</strong> 명시</p>
+            <h4 class="red">문제 ①   업로드 시간 제각각</h4>
+            <p class="muted" style="margin: 4px 0 12px;">사람이 직접 확인할 필요가 없어야 한다</p>
+            <div class="flow-diagram">
+              <span class="cy">[n8n Scheduler]</span> 3시간마다 자동 폴링
+              │
+              ▼
+              <span class="cy">[Supabase]</span> 중복 방지 ID로 재처리 차단
+              │
+              ▼
+              <span class="cy">[React Router v7 앱]</span> 6개 도서관을 한 화면에
+            </div>
           </div>
+
           <div class="card fragment fade-up">
-            <h4>② 3시간 주기 재크롤</h4>
-            <p style="font-size: 0.85em;">업로드 시간이 제각각 → 워크플로를 <strong>3시간마다</strong> 실행</p>
-            <p style="font-size: 0.85em;"><strong class="amber">누락된 도서관만</strong> 재크롤 → 호출/비용 절감</p>
+            <h4 class="red">문제 ②   6개의 서로 다른 포맷</h4>
+            <p class="muted" style="margin: 4px 0 12px;">웹 게시판 이미지 · 엑셀 첨부 · 혼합 게시물</p>
+            <div class="flow-diagram">
+              <span class="hl">크롤링 + HTML 파싱</span> 포맷별 분기로 링크 추출
+              │
+              ▼
+              <span class="hl">LLM 정제 (Claude Opus)</span> 비정형 → 정형 JSON
+            </div>
           </div>
         </div>
       </section>
@@ -1041,21 +1064,19 @@
       <section data-background-color="#0d0a07">
         <div class="hero-center">
           <div class="kicker">SHIPPED · 앱인토스</div>
-          <div class="quote-big">
-            "별도 앱 설치 없이,<br>
-            <span class="amber">매일 여는 앱 안에서</span>"
+          <div class="quote">
+            "별도 앱 설치 없이, 매일 여는 앱 안에서"
           </div>
+           <span class="amber quote-big">성남시 도서관 주간 식단표</span>
           <img width="5%" style="margin-top: 40px;" src="./성남시도서관3.png" />
           <p class="muted" style="margin-top: 40px; max-width: 34ch; text-align: center; font-size: 0.7em;">
             토스 미니앱(앱인토스)으로 <strong class="amber">실제 배포 완료</strong><br>
             진입 장벽 zero, 자연스러운 일상 속 자리
           </p>
           <div>
-
-            <div style="display:flex; justify-content: center; align-items: center; gap:10px;">
-
-              <img width="10%" src="./성남시도서관.jpg" />
-              <img width="10%" src="./성남시도서관2.jpg" />
+            <div style="margin-left: 14em; margin-top:1.2em; display:flex; justify-content: center; align-items: center; gap:10px;">
+              <img width="15%" src="./성남시도서관.jpg" /> =>
+              <img width="55%" src="./성남시도서관5.png" />
             </div>
           </div>
 
