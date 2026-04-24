@@ -977,7 +977,7 @@
             <ul style="margin: 0 0 12px; padding-left: 1.2em; list-style: disc;">
               <li>각 도서관이 서로 다른 포맷으로 식단표를 공지:</li>
             </ul>
-            <div style="display: flex; gap: 2%; align-items: flex-end;">
+            <div style="display: flex; gap: 2%; align-items: flex-end; justify-items: center; width: 80%;">
               <figure style="flex: 1; margin: 0; text-align: center;">
                 <img style="width: 100%; aspect-ratio: 1;" src="./수정도서관.png">
                 <figcaption class="muted">웹 게시판에 이미지 기재 </figcaption>
@@ -986,7 +986,7 @@
                 <img style="width: 100%; aspect-ratio: 1;" src="./분당도서관.png">
                 <figcaption class="muted">엑셀파일</figcaption>
               </figure>
-              <figure style="flex: 1; margin: 0; text-align: center;">
+              <figure style="flex: 1.2; margin: 0; text-align: center;">
                 <img style="width: 100%; aspect-ratio: 1.2;" src="./구미도서관.png">
                 <figcaption class="muted">엑셀파일</figcaption>
               </figure>
@@ -1008,17 +1008,16 @@
                src="./성남시도서관4.png"
                style="grid-column: 1; grid-row: 1; max-width: 100%; height: auto;">
           <div class="flow-diagram fragment fade-in" data-fragment-index="0"
-               style="grid-column: 1; grid-row: 1; align-self: center; justify-self: stretch;">
-            <span class="cy">[n8n Scheduler]</span> 3시간마다 트리거
-            │
-            ▼
-            <span class="hl">크롤링 + HTML 파싱</span> 이번 주 게시물만 필터
-            │
-            ▼
-            <span class="hl">LLM 정제 (Claude Opus)</span> 비정형 → 정형 JSON
-            │
-            ▼
-            <span class="cy">[Supabase]</span> 중복 방지 ID 설계
+               style="grid-column: 1; grid-row: 1; align-self: center; justify-self: stretch;
+                      white-space: normal; display: flex; flex-direction: column;
+                      align-items: center; gap: 10px; text-align: center;">
+            <div><span class="cy">[n8n Scheduler]</span> 3시간마다 트리거</div>
+            <div style="color: var(--amber); font-size: 1.6em; line-height: 1;">↓</div>
+            <div><span class="hl">크롤링 + HTML 파싱</span> 이번 주 게시물만 필터</div>
+            <div style="color: var(--amber); font-size: 1.6em; line-height: 1;">↓</div>
+            <div><span class="hl">LLM 정제 (Claude Opus)</span> 비정형 → 정형 JSON</div>
+            <div style="color: var(--amber); font-size: 1.6em; line-height: 1;">↓</div>
+            <div><span class="cy">[Supabase]</span> 중복 방지 ID 설계</div>
           </div>
         </div>
       </section>
