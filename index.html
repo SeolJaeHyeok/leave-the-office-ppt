@@ -747,8 +747,7 @@
   <h2>첫 플로우 — <span class="amber">트리거에서 응답까지</span></h2>
 
   <div class="flow-diagram" style="margin-top: 20px; font-size: 0.52em;">
-질문 → <span class="cy">메신저봇</span> → <span class="hl">Webhook</span> → <span class="hl">Sheets(Get)</span> → <span class="hl">Sheets(Upsert)</span>
-     → <span class="cy">Wait 1m</span> → <span class="cy">Code</span>(시간 비교) → <span class="hl">HTTP Request</span> → <span class="rd">Vertex AI Search</span> → 답변 → 응답
+질문 → <span class="cy">메신저봇</span> → <span class="hl">Webhook</span> → <span class="hl">Sheets(Get)</span> → <span class="hl">Sheets(Upsert)</span> → <span class="cy">Wait 1m</span> → <span class="cy">Code</span>(시간 비교) → <span class="hl">HTTP Request</span> → <span class="rd">Vertex AI Search</span> → 답변 → 응답
   </div>
 
   <p style="margin-top: 22px;"><strong>핵심:</strong> <code>Append or Update Row</code> <span class="amber">Upsert</span>로 Race Condition 해결.</p>
@@ -886,11 +885,14 @@
   <h2>NotebookLM <span class="amber">Adapter Server</span></h2>
 
   <div class="flow-diagram" style="margin-top: 14px;">
-<span class="cy">[EC2]</span>  ├─ <span class="hl">n8n</span> (워크플로우)
-      └─ <span class="hl">NotebookLM Adapter</span> (로컬 서버)
-            │  Chrome CDP
-            ▼
-         <span class="cy">[Headless Chrome]</span>  →  NotebookLM 챗봇  →  답변
+<span class="cy">[EC2]</span>
+  <span class="hl">n8n</span> (워크플로우)
+    │
+    ▼
+  <span class="hl">NotebookLM Adapter</span> (로컬 서버)
+    │  Chrome CDP
+    ▼
+  <span class="cy">Headless Chrome</span>  ──▶  NotebookLM 챗봇  ──▶  답변
   </div>
 
   <div class="grid-3" style="margin-top: 18px;">
@@ -966,7 +968,7 @@
         <div class="section-number">김경태 · 01</div>
         <h2>6개 도서관, <span class="red">6개의 공지 포맷</span></h2>
 
-        <div class="grid-2">
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 22px;">
           <div>
             <p class="lede muted">수정 · 중원 · 분당 · 중앙 · 구미 · 판교</p>
             <div style="display: flex; gap:10px;">
@@ -977,7 +979,7 @@
             <p class="muted">각 도서관이 서로 다른 포맷으로 식단표를 공지:</p>
             <p class="muted" style="margin-top: 20px;">업로드 시간도 제각각 → 매주 6번 직접 방문해야 확인</p>
           </div>
-          <div class="card accent">
+          <div class="card accent" style="width: fit-content; align-self: start; white-space: nowrap;">
             <h4>목표</h4>
             <p class="lede" style="font-size: 1.1em;">
               "6개 도서관 이번 주 식단을<br>
